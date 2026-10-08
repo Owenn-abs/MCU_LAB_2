@@ -1,2 +1,2 @@
 # MCU_LAB_2
-Make for publishing lab 2 MCU code and proteus schematic
+Click on the branch to view all the excercise for lab 2
