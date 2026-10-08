@@ -56,6 +56,44 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void display7SEG(int num) {
+	const uint8_t segmentNum[10] =
+	{
+		0x40, // 0100 0000 -> 0
+		0x79, // 0111 1001 -> 1
+		0x24, // 0010 0100 -> 2
+		0x30, // 0011 0000 -> 3
+		0x19, // 0001 1001 -> 4
+		0x12, // 0001 0010 -> 5
+		0x02, // 0000 0010 -> 6
+		0x78, // 0111 1000 -> 7
+		0x00, // 0000 0000 -> 8
+		0x10, // 0001 0000 -> 9
+	};
+
+    const uint16_t pin[7] =
+    {
+        GPIO_PIN_0,
+        GPIO_PIN_1,
+        GPIO_PIN_2,
+        GPIO_PIN_3,
+        GPIO_PIN_4,
+        GPIO_PIN_5,
+        GPIO_PIN_6
+    };
+
+    uint8_t hold = segmentNum[num];
+
+    for(int i = 0; i < 7; ++i) {
+    	if(hold % 2 == 0)
+    		HAL_GPIO_WritePin(GPIOB, pin[i], GPIO_PIN_RESET);
+    	else
+    		HAL_GPIO_WritePin(GPIOB, pin[i], GPIO_PIN_SET);
+
+    	hold >>= 1;
+    }
+}
+
 const int MAX_LED = 4;
 int index_led = 0;
 int led_buffer[4] = {1,2,3,4};
